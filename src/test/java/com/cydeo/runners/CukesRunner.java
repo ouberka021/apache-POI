@@ -13,15 +13,10 @@ import org.junit.runner.RunWith;
         },
         features = "src/test/resources/features",
         glue = "com/cydeo/step_definitions",
-        dryRun = false,
-        tags ="@taieb",
-        // tags = "@admin or @student" or tag
-        // tags = "@admin and @student" and tag
-        // tags = "@admin and not @student" and not tag
-
-        publish = true
-
+        dryRun =false,
+        tags = "@wip"
 )
-
 public class CukesRunner {
 }
+
+

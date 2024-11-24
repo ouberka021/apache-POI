@@ -1,39 +1,47 @@
 package com.cydeo.step_definitions;
 
+/*
+In the class we will be able to pass pre- & post- conditions to
+ each scenario and each step
+ */
+
 import com.cydeo.utilities.Driver;
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
-import io.cucumber.java.BeforeStep;
-import io.cucumber.java.Scenario;
+import io.cucumber.java.*;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
-// In this class we will be able to create "pre" and "post"
-//condition for all the SCENARIOS and even STEPS
 public class Hooks {
+
+    //import from io.cucumber.java not from junit
     @Before
-    public void setUp() {
-        System.out.println("----> This is @Before Each Scenario");
+    public void setupScenario(){
+        System.out.println("====Setting up browser using cucumber @Before");
     }
-    @Before ("@library ")
-    public void login_scenario_before() {
-        System.out.println("----> This is @Before Each Scenario");
-    }
+
+
+
     @After
-    public void tearDown(Scenario scenario) {
-if (scenario.isFailed()) {
-    byte[] screenshot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
-    scenario.attach(screenshot, "image/png", scenario.getName());
-}
+    public void teardownScenario(Scenario scenario){
 
-        System.out.println("----> This is @After Each Scenario");
-      // Driver.closeDriver();
+        //scenario.isFailed() --> if scenario fails this method will return TRUE boolean value
 
+
+        if (scenario.isFailed()){
+
+            byte [] screenshot = ((TakesScreenshot)Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
+            scenario.attach(screenshot, "image/png", scenario.getName());
+
+        }
+
+
+        //BrowserUtils.sleep(5);
+        Driver.closeDriver();
+
+        //System.out.println("====Closing browser using cucumber @After");
+        //System.out.println("====Scenario ended/ Take screenshot if failed!");
     }
-@BeforeStep
-    public void beforeStep() {
-        System.out.println("----> Before Step: ");
-    }
+
+
 
 
 }
